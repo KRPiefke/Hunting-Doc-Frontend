@@ -6,7 +6,7 @@ const App = () => {
     <AppBar position="sticky">
       <Container maxWidth="lg">
         <Toolbar>
-          <Typography variant="h5" sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', flexGrow: 1 }}>
+          <Typography variant="h5" sx={{ display: { xs: 'none', sm: 'flex' }, flexGrow: 1 }}>
             Hunting Doc
           </Typography>
           <Button color="inherit">Login</Button>
