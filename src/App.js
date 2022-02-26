@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AppBar, Toolbar, Typography, Button, Container } from '@mui/material';
 import { Box } from '@mui/system';
 
 const App = () => {
+  const [loginDialogOpen, setLoginDialogOpen] = useState(false);
+
   return (
     <AppBar position="sticky">
       <Container maxWidth="lg">
@@ -12,7 +14,9 @@ const App = () => {
               Hunting Doc
             </Typography>
           </Box>
-          <Button color="inherit">Login</Button>
+            <Button color="inherit" onClick={() => setLoginDialogOpen(true)}>
+              Login
+            </Button>
         </Toolbar>
       </Container>
     </AppBar>
