@@ -1,4 +1,6 @@
 import { createTheme } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
 
 const theme = createTheme({
   palette: {
@@ -11,4 +13,13 @@ const theme = createTheme({
   },
 });
 
-export default theme;
+const MyThemeProvider = props => {
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline enableColorScheme />
+      {props.children}
+    </ThemeProvider>
+  );
+};
+
+export default MyThemeProvider;
