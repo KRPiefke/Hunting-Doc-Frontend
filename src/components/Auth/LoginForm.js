@@ -64,15 +64,13 @@ const LoginForm = ({ open, handleClose }) => {
             </Button>
             <Grid container sx={{ mt: '0.5em' }}>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  <Typography noWrap sx={{ mr: '1em' }}>
-                    Passwort vergessen?
-                  </Typography>
+                <Link href="#" variant="body2" noWrap>
+                  Passwort vergessen?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  <Typography noWrap>Kein Konto? Jetzt registrieren</Typography>
+                <Link href="#" variant="body2" noWrap>
+                  Kein Konto? Jetzt registrieren
                 </Link>
               </Grid>
             </Grid>
