@@ -5,18 +5,18 @@ import { handleRequests } from '@redux-requests/core';
 import { createDriver } from '@redux-requests/axios';
 
 const { requestsReducer, requestsMiddleware } = handleRequests({
-  driver: createDriver(axiosInstance),
+    driver: createDriver(axiosInstance),
 });
 
 const reducers = combineReducers({
-  requests: requestsReducer,
-  ...allReducers,
+    requests: requestsReducer,
+    ...allReducers,
 });
 
 const store = configureStore({
-  reducer: reducers,
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({ serializableCheck: false, immutableCheck: false }).concat(requestsMiddleware),
+    reducer: reducers,
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware({ serializableCheck: false, immutableCheck: false }).concat(requestsMiddleware),
 });
 
 export default store;
