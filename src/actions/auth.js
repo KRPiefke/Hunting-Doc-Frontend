@@ -1,10 +1,10 @@
-import createAction from '@reduxjs/toolkit';
+import { createAction } from '@reduxjs/toolkit';
 
 export const login = createAction('login', ({ username, password, rememberMe }) => ({
     payload: {
         request: {
             url: '/auth/login',
-            mehtod: 'POST',
+            method: 'POST',
             data: {
                 username,
                 password,
