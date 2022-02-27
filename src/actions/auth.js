@@ -13,3 +13,12 @@ export const login = createAction('LOGIN', ({ username, password, rememberMe }) 
         },
     },
 }));
+
+export const refreshToken = createAction('REFRESH_TOKEN', () => ({
+    payload: {
+        request: {
+            url: '/auth/refresh-token',
+            method: 'POST',
+        },
+    },
+}));
