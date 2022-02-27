@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../actions/auth';
 import { useTheme } from '@mui/system';
 import {
@@ -16,6 +16,7 @@ import {
     Box,
     useMediaQuery,
     DialogContent,
+    CircularProgress,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
@@ -28,6 +29,7 @@ const initialFormData = {
 const LoginForm = ({ open, handleClose }) => {
     const theme = useTheme();
     const dispatch = useDispatch();
+    const loginRequestPending = useSelector(state => state.requests.mutations.login?.pending);
     const showFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [formData, updateFormData] = useState(initialFormData);
     const [showPassword, setShowPassword] = useState(false);
@@ -66,7 +68,7 @@ const LoginForm = ({ open, handleClose }) => {
                     <Typography component="h1" variant="h5">
                         Anmelden
                     </Typography>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={loginRequestPending ? null : handleSubmit}>
                         <FormGroup sx={{ width: showFullScreen ? '100%' : '28em' }}>
                             <TextField
                                 onChange={handleChange}
@@ -99,7 +101,7 @@ const LoginForm = ({ open, handleClose }) => {
                                 label="Passwort anzeigen"
                             />
                             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                                Anmelden
+                                {loginRequestPending ? <CircularProgress color="secondary" size="1.75em" /> : 'Anmelden'}
                             </Button>
                             <Grid container sx={{ mt: '0.5em' }}>
                                 <Grid item xs>
