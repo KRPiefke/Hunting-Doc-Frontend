@@ -15,7 +15,6 @@ export default createReducer(
             tokenService.setAccessToken(accessToken);
         },
         [error(login)]: (state, action) => {
-            console.log(action.payload.response.data);
             state.error = action.payload.response.data.message;
         },
     }
