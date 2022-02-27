@@ -35,6 +35,13 @@ const LoginForm = ({ open, handleClose }) => {
     });
   };
 
+  const handleRememberMe = e => {
+    updateFormData({
+      ...formData,
+      rememberMe: !formData.rememberMe,
+    });
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
     console.log(formData);
@@ -79,7 +86,10 @@ const LoginForm = ({ open, handleClose }) => {
                 id="password"
                 autoComplete="current-password"
               />
-              <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Angemeldet bleiben" />
+              <FormControlLabel
+                control={<Checkbox color="primary" onChange={handleRememberMe} />}
+                label="Angemeldet bleiben"
+              />
               <FormControlLabel control={<Checkbox value="showPassword" color="primary" />} label="Passwort anzeigen" />
               <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Anmelden
