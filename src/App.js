@@ -16,7 +16,7 @@ const App = () => {
             setLoginDialogOpen(false);
             dispatch(fetchAllShootings());
         }
-    }, [isLoggedIn]);
+    }, [isLoggedIn, dispatch]);
 
     return (
         <>
