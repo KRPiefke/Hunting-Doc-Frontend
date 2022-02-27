@@ -17,9 +17,16 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
+const initialFormData = {
+  username: null,
+  password: null,
+  rememberMe: false,
+};
+
 const LoginForm = ({ open, handleClose }) => {
   const theme = useTheme();
   const showFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const [formData, updateFormData] = useState(initialFormData);
 
   return (
     <Dialog fullScreen={showFullScreen} open={open}>
