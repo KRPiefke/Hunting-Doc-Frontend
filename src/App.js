@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllShootings } from './actions/shootings';
 import { AppBar, Toolbar, Typography, Button, Container, Avatar } from '@mui/material';
 import { Box } from '@mui/system';
 
 import LoginForm from './components/Auth/LoginForm';
 
 const App = () => {
+    const dispatch = useDispatch();
     const [loginDialogOpen, setLoginDialogOpen] = useState(false);
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
     useEffect(() => {
         if (isLoggedIn) {
             setLoginDialogOpen(false);
+            dispatch(fetchAllShootings());
         }
     }, [isLoggedIn]);
 
