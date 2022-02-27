@@ -27,6 +27,7 @@ const LoginForm = ({ open, handleClose }) => {
   const theme = useTheme();
   const showFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [formData, updateFormData] = useState(initialFormData);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = e => {
     updateFormData({
@@ -82,7 +83,7 @@ const LoginForm = ({ open, handleClose }) => {
                 fullWidth
                 name="password"
                 label="Passwort"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 id="password"
                 autoComplete="current-password"
               />
@@ -90,7 +91,10 @@ const LoginForm = ({ open, handleClose }) => {
                 control={<Checkbox color="primary" onChange={handleRememberMe} />}
                 label="Angemeldet bleiben"
               />
-              <FormControlLabel control={<Checkbox value="showPassword" color="primary" />} label="Passwort anzeigen" />
+              <FormControlLabel
+                control={<Checkbox color="primary" onChange={() => setShowPassword(!showPassword)} />}
+                label="Passwort anzeigen"
+              />
               <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Anmelden
               </Button>
