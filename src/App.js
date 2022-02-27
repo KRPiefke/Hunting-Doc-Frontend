@@ -11,7 +11,7 @@ const App = () => {
     <>
       <AppBar position="sticky">
         <Container maxWidth="lg">
-          <Toolbar>
+          <Toolbar disableGutters>
             <Box sx={{ flexGrow: 1 }}>
               <Typography variant="h5" sx={{ display: { xs: 'none', sm: 'flex' } }}>
                 Hunting Doc
