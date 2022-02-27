@@ -27,7 +27,7 @@ axiosInstance.interceptors.response.use(
             if (err.response.status === 401 && !originalConfig._retry) {
                 originalConfig._retry = true;
                 try {
-                    const refreshResponse = await instance.post('/auth/refreshToken');
+                    const refreshResponse = await instance.post('/auth/refresh-token');
                     const { accessToken } = refreshResponse.data;
                     tokenService.setAccessToken(accessToken);
                     return axiosInstance(originalConfig);
