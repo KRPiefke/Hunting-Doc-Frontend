@@ -14,7 +14,7 @@ export default createReducer(
             let accessToken = action.payload.data.access_token;
             state.accessToken = accessToken;
             state.isLoggedIn = true;
-            axiosInstance.defaults.headers.authorization = accessToken;
+            axiosInstance.defaults.headers.authorization = 'Bearer ' + accessToken;
         },
         [error(login)]: (state, action) => {
             console.log(action.payload.response.data);
