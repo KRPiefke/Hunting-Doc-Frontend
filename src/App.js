@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, Button, Container } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Box } from '@mui/system';
 
 import LoginForm from './components/Auth/LoginForm';
 
 const App = () => {
     const [loginDialogOpen, setLoginDialogOpen] = useState(false);
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            setLoginDialogOpen(false);
+        }
+    }, [isLoggedIn]);
 
     return (
         <>
