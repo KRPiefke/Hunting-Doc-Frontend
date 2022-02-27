@@ -11,11 +11,14 @@ export default createReducer(
     },
     {
         [success(login)]: (state, action) => {
-            state.accessToken = action.payload.data.accessToken;
-            axiosInstance.defaults.headers.authorization = action.payload.data.access_token;
+            let accessToken = action.payload.data.access_token;
+            state.accessToken = accessToken;
+            state.isLoggedIn = true;
+            axiosInstance.defaults.headers.authorization = accessToken;
         },
         [error(login)]: (state, action) => {
-            state.error = action.payload.data.error;
+            console.log(action.payload.response.data);
+            state.error = action.payload.response.data.message;
         },
     }
 );
