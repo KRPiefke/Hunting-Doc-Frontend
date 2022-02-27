@@ -28,6 +28,13 @@ const LoginForm = ({ open, handleClose }) => {
   const showFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [formData, updateFormData] = useState(initialFormData);
 
+  const handleChange = e => {
+    updateFormData({
+      ...formData,
+      [e.target.name]: e.target.value.trim(),
+    });
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
     console.log(formData);
@@ -51,6 +58,7 @@ const LoginForm = ({ open, handleClose }) => {
           <form onSubmit={handleSubmit}>
             <FormGroup sx={{ width: showFullScreen ? '100%' : '28em' }}>
               <TextField
+                onChange={handleChange}
                 margin="normal"
                 required
                 fullWidth
@@ -61,6 +69,7 @@ const LoginForm = ({ open, handleClose }) => {
                 autoFocus
               />
               <TextField
+                onChange={handleChange}
                 margin="normal"
                 required
                 fullWidth
