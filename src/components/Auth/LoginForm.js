@@ -28,6 +28,11 @@ const LoginForm = ({ open, handleClose }) => {
   const showFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [formData, updateFormData] = useState(initialFormData);
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log(formData);
+  };
+
   return (
     <Dialog fullScreen={showFullScreen} open={open}>
       <DialogContent>
@@ -43,45 +48,47 @@ const LoginForm = ({ open, handleClose }) => {
           <Typography component="h1" variant="h5">
             Anmelden
           </Typography>
-          <FormGroup sx={{ width: showFullScreen ? '100%' : '28em' }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Nutzername"
-              name="username"
-              autoComplete="username"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Passwort"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Angemeldet bleiben" />
-            <FormControlLabel control={<Checkbox value="showPassword" color="primary" />} label="Passwort anzeigen" />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              Anmelden
-            </Button>
-            <Grid container sx={{ mt: '0.5em' }}>
-              <Grid item xs>
-                <Link href="#" variant="body2" noWrap>
-                  Passwort vergessen?
-                </Link>
+          <form onSubmit={handleSubmit}>
+            <FormGroup sx={{ width: showFullScreen ? '100%' : '28em' }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Nutzername"
+                name="username"
+                autoComplete="username"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Passwort"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Angemeldet bleiben" />
+              <FormControlLabel control={<Checkbox value="showPassword" color="primary" />} label="Passwort anzeigen" />
+              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                Anmelden
+              </Button>
+              <Grid container sx={{ mt: '0.5em' }}>
+                <Grid item xs>
+                  <Link href="#" variant="body2" noWrap>
+                    Passwort vergessen?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link href="#" variant="body2" noWrap>
+                    Kein Konto? Jetzt registrieren
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Link href="#" variant="body2" noWrap>
-                  Kein Konto? Jetzt registrieren
-                </Link>
-              </Grid>
-            </Grid>
-          </FormGroup>
+            </FormGroup>
+          </form>
         </Box>
         <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 8, mb: 4 }}>
           {'Copyright © '}
