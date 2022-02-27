@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllShootings } from './actions/shootings';
+import { refreshToken } from './actions/auth';
 import { AppBar, Toolbar, Typography, Button, Container, Avatar } from '@mui/material';
 import { Box } from '@mui/system';
 
@@ -10,6 +11,10 @@ const App = () => {
     const dispatch = useDispatch();
     const [loginDialogOpen, setLoginDialogOpen] = useState(false);
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+
+    useEffect(() => {
+        dispatch(refreshToken());
+    }, [dispatch]);
 
     useEffect(() => {
         if (isLoggedIn) {
