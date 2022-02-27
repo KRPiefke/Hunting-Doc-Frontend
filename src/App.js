@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllShootings } from './actions/shootings';
-import { refreshToken } from './actions/auth';
+import { refreshToken, logout } from './actions/auth';
 import { AppBar, Toolbar, Typography, Button, Container, Avatar, Menu, MenuItem } from '@mui/material';
 import { Box } from '@mui/system';
 
@@ -28,8 +28,13 @@ const App = () => {
     const handleAvatarMenuClick = event => {
         setAvatarMenuAnchorEl(event.currentTarget);
     };
+
     const handleAvatarMenuClose = () => {
         setAvatarMenuAnchorEl(null);
+    };
+
+    const handleLogout = () => {
+        dispatch(logout());
     };
 
     return (
@@ -61,7 +66,12 @@ const App = () => {
                             anchorEl={avatarMenuAnchorEl}
                             open={avatarMenuOpen}
                             onClose={handleAvatarMenuClose}>
-                            <MenuItem autoFocus={false} onClick={handleAvatarMenuClose}>
+                            <MenuItem
+                                autoFocus={false}
+                                onClick={() => {
+                                    handleAvatarMenuClose();
+                                    handleLogout();
+                                }}>
                                 Abmelden
                             </MenuItem>
                         </Menu>
