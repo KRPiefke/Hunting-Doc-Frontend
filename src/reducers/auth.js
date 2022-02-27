@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { success, error } from '@redux-requests/core';
 import tokenService from '../services/tokenService';
-import { login } from '../actions/auth';
+import { login, refreshToken } from '../actions/auth';
 
 export default createReducer(
     {
@@ -16,6 +16,11 @@ export default createReducer(
         },
         [error(login)]: (state, action) => {
             state.error = action.payload.response.data.message;
+        },
+        [success(refreshToken)]: (state, action) => {
+            let accessToken = action.payload.data.accessToken;
+            state.isLoggedIn = true;
+            tokenService.setAccessToken(accessToken);
         },
     }
 );
