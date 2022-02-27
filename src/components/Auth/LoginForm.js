@@ -1,42 +1,92 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import { Checkbox, Typography, FormControlLabel, FormGroup } from '@mui/material';
+import { useTheme } from '@mui/system';
+import {
+  Checkbox,
+  Typography,
+  FormControlLabel,
+  FormGroup,
+  Button,
+  TextField,
+  Dialog,
+  Avatar,
+  Link,
+  Grid,
+  Box,
+  useMediaQuery,
+  DialogContent,
+} from '@mui/material';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 const LoginForm = ({ open, handleClose }) => {
-  const [showPassword, setShowPassword] = useState(false);
+  const theme = useTheme();
+  const showFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Dialog maxWidth="xs" fullWidth open={open} onClose={handleClose}>
-      <DialogTitle textAlign="center" sx={{ pb: '1em', pt: '1.5em' }}>
-        Anmelden
-      </DialogTitle>
+    <Dialog fullScreen={showFullScreen} open={open}>
       <DialogContent>
-        <TextField margin="dense" required id="outlined-required" label="Nutzername" type="username" fullWidth />
-        <TextField
-          margin="dense"
-          required
-          id="outlined-required"
-          label="Passwort"
-          type={showPassword ? 'text' : 'password'}
-          fullWidth
-        />
-        <FormGroup>
-          <FormControlLabel
-            control={<Checkbox onChange={() => setShowPassword(!showPassword)} />}
-            label="Passwort anzeigen"
-          />
-        </FormGroup>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Anmelden
+          </Typography>
+          <FormGroup sx={{ width: showFullScreen ? '100%' : '28em' }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Nutzername"
+              name="username"
+              autoComplete="username"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Passwort"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Angemeldet bleiben" />
+            <FormControlLabel control={<Checkbox value="showPassword" color="primary" />} label="Passwort anzeigen" />
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+              Anmelden
+            </Button>
+            <Grid container sx={{ mt: '0.5em' }}>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  <Typography noWrap sx={{ mr: '1em' }}>
+                    Passwort vergessen?
+                  </Typography>
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="#" variant="body2">
+                  <Typography noWrap>Kein Konto? Jetzt registrieren</Typography>
+                </Link>
+              </Grid>
+            </Grid>
+          </FormGroup>
+        </Box>
+        <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 8, mb: 4 }}>
+          {'Copyright © '}
+          <Link color="inherit" href="https://huntingdoc.kaiserreich.cloud">
+            Hunting Doc
+          </Link>{' '}
+          {new Date().getFullYear()}
+          {'.'}
+        </Typography>
       </DialogContent>
-      <DialogActions sx={{ pb: '1.5em' }}>
-        <Typography sx={{ flexGrow: 1, ml: '1em' }}>* Pflichtfelder</Typography>
-        <Button onClick={handleClose}>Abbrechen</Button>
-        <Button sx={{ mr: '1em' }}>Login</Button>
-      </DialogActions>
     </Dialog>
   );
 };
