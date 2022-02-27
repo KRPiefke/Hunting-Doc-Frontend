@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { login } from '../../actions/auth';
 import { useTheme } from '@mui/system';
 import {
     Checkbox,
@@ -25,6 +27,7 @@ const initialFormData = {
 
 const LoginForm = ({ open, handleClose }) => {
     const theme = useTheme();
+    const dispatch = useDispatch();
     const showFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [formData, updateFormData] = useState(initialFormData);
     const [showPassword, setShowPassword] = useState(false);
@@ -45,7 +48,7 @@ const LoginForm = ({ open, handleClose }) => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(formData);
+        dispatch(login(formData));
     };
 
     return (
