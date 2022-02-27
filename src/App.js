@@ -8,7 +8,7 @@ const App = () => {
   const [loginDialogOpen, setLoginDialogOpen] = useState(false);
 
   return (
-    <div>
+    <>
       <AppBar position="sticky">
         <Container maxWidth="lg">
           <Toolbar>
@@ -24,7 +24,7 @@ const App = () => {
           <LoginForm open={loginDialogOpen} handleClose={() => setLoginDialogOpen(false)} />
         </Container>
       </AppBar>
-    </div>
+    </>
   );
 };
 
