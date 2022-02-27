@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { AppBar, Toolbar, Typography, Button, Container, Avatar } from '@mui/material';
 import { Box } from '@mui/system';
 
 import LoginForm from './components/Auth/LoginForm';
@@ -24,9 +25,13 @@ const App = () => {
                                 Hunting Doc
                             </Typography>
                         </Box>
-                        <Button color="inherit" onClick={() => setLoginDialogOpen(true)}>
-                            Login
-                        </Button>
+                        {isLoggedIn ? (
+                            <Avatar sx={{ bgcolor: 'secondary.main' }}>AA</Avatar>
+                        ) : (
+                            <Button color="inherit" onClick={() => setLoginDialogOpen(true)}>
+                                Login
+                            </Button>
+                        )}
                     </Toolbar>
                     <LoginForm open={loginDialogOpen} handleClose={() => setLoginDialogOpen(false)} />
                 </Container>
