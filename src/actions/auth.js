@@ -22,3 +22,12 @@ export const refreshToken = createAction('REFRESH_TOKEN', () => ({
         },
     },
 }));
+
+export const logout = createAction('LOGOUT', () => ({
+    payload: {
+        request: {
+            url: '/auth/logout',
+            method: 'POST',
+        },
+    },
+}));
