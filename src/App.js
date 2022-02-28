@@ -6,10 +6,12 @@ import { AppBar, Toolbar, Typography, Button, Container, Avatar, Menu, MenuItem 
 import { Box } from '@mui/system';
 
 import LoginForm from './components/Auth/LoginForm';
+import RegistrationForm from './components/Auth/RegistrationForm';
 
 const App = () => {
     const dispatch = useDispatch();
     const [loginDialogOpen, setLoginDialogOpen] = useState(false);
+    const [registrationDialogOpen, setRegistrationDialogOpen] = useState(false);
     const [avatarMenuAnchorEl, setAvatarMenuAnchorEl] = useState(null);
     const avatarMenuOpen = Boolean(avatarMenuAnchorEl);
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
@@ -81,6 +83,7 @@ const App = () => {
                                     autoFocus={false}
                                     onClick={() => {
                                         handleAvatarMenuClose();
+                                        setRegistrationDialogOpen(true);
                                     }}>
                                     Registrierung
                                 </MenuItem>
@@ -96,6 +99,7 @@ const App = () => {
                         </Menu>
                     </Toolbar>
                     <LoginForm open={loginDialogOpen} handleClose={() => setLoginDialogOpen(false)} />
+                    <RegistrationForm open={registrationDialogOpen} handleClose={() => setRegistrationDialogOpen(false)} />
                 </Container>
             </AppBar>
         </>
