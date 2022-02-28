@@ -29,7 +29,7 @@ const initialFormData = {
 const LoginForm = ({ open, handleClose }) => {
     const theme = useTheme();
     const dispatch = useDispatch();
-    const loginRequestPending = useSelector(state => state.requests.mutations.login?.pending);
+    const loginRequestPending = useSelector(state => state.requests.mutations.LOGIN?.pending);
     const showFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [formData, updateFormData] = useState(initialFormData);
     const [showPassword, setShowPassword] = useState(false);
