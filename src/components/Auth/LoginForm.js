@@ -54,7 +54,7 @@ const LoginForm = ({ open, handleClose }) => {
     };
 
     return (
-        <Dialog fullScreen={showFullScreen} open={open}>
+        <Dialog fullScreen={showFullScreen} open={open} onClose={handleClose}>
             <DialogContent>
                 <Box
                     sx={{
