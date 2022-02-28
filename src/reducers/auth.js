@@ -25,6 +25,7 @@ export default createReducer(
         [success(logout)]: (state, action) => {
             state.isLoggedIn = false;
             tokenService.setAccessToken(null);
+            window.location.reload();
         },
     }
 );
