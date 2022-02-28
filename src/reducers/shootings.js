@@ -12,7 +12,7 @@ export default createReducer(
             state.data = action.payload.data;
         },
         [error(fetchAllShootings)]: (state, action) => {
-            state.error = action.payload.response.data.message;
+            state.error = action.payload.response.data?.message;
         },
     }
 );
