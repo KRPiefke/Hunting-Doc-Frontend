@@ -14,6 +14,7 @@ const App = () => {
     const avatarMenuOpen = Boolean(avatarMenuAnchorEl);
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const userInitials = useSelector(state => state.auth?.user?.initials);
+    const isAdmin = useSelector(state => state.auth?.user?.scopes?.isAdmin);
 
     useEffect(() => {
         dispatch(refreshToken());
@@ -75,6 +76,15 @@ const App = () => {
                                 vertical: 'top',
                                 horizontal: 'right',
                             }}>
+                            {isAdmin ? (
+                                <MenuItem
+                                    autoFocus={false}
+                                    onClick={() => {
+                                        handleAvatarMenuClose();
+                                    }}>
+                                    Registrierung
+                                </MenuItem>
+                            ) : null}
                             <MenuItem
                                 autoFocus={false}
                                 onClick={() => {
