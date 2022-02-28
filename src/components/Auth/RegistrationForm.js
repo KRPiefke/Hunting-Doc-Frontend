@@ -30,7 +30,7 @@ const initialFormData = {
 const RegistrationForm = ({ open, handleClose }) => {
     const theme = useTheme();
     const dispatch = useDispatch();
-    const loginRequestPending = useSelector(state => state.requests.mutations.REGISTRATION?.pending);
+    const registerRequestPending = useSelector(state => state.requests.mutations.REGISTER?.pending);
     const showFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [formData, updateFormData] = useState(initialFormData);
     const [showPassword, setShowPassword] = useState(false);
@@ -64,7 +64,7 @@ const RegistrationForm = ({ open, handleClose }) => {
                             Registrierung
                         </Typography>
                     </Box>
-                    <form onSubmit={loginRequestPending ? null : handleSubmit}>
+                    <form onSubmit={registerRequestPending ? null : handleSubmit}>
                         <FormGroup sx={{ width: showFullScreen ? '100%' : '28em' }}>
                             <TextField
                                 onChange={handleChange}
@@ -136,7 +136,11 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 label="Passwort anzeigen"
                             />
                             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 1.5 }}>
-                                {loginRequestPending ? <CircularProgress color="secondary" size="1.75em" /> : 'Registrieren'}
+                                {registerRequestPending ? (
+                                    <CircularProgress color="secondary" size="1.75em" />
+                                ) : (
+                                    'Registrieren'
+                                )}
                             </Button>
                             <Button fullWidth variant="outlined" onClick={handleClose} sx={{ mb: 2 }}>
                                 Abbrechen
