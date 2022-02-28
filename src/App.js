@@ -65,7 +65,15 @@ const App = () => {
                             id="avatar-menu"
                             anchorEl={avatarMenuAnchorEl}
                             open={avatarMenuOpen}
-                            onClose={handleAvatarMenuClose}>
+                            onClose={handleAvatarMenuClose}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'right',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}>
                             <MenuItem
                                 autoFocus={false}
                                 onClick={() => {
