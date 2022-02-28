@@ -30,9 +30,11 @@ const LoginForm = ({ open, handleClose }) => {
     const theme = useTheme();
     const dispatch = useDispatch();
     const loginRequestPending = useSelector(state => state.requests.mutations.LOGIN?.pending);
+    const loginError = useSelector(state => state.auth?.error);
     const showFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [formData, updateFormData] = useState(initialFormData);
     const [showPassword, setShowPassword] = useState(false);
+    const [wrongCredentials, setWrongCredentials] = useState(false);
 
     const handleChange = e => {
         updateFormData({
@@ -51,6 +53,9 @@ const LoginForm = ({ open, handleClose }) => {
     const handleSubmit = e => {
         e.preventDefault();
         dispatch(login(formData));
+        if (loginError === 'The username or password is wrong.') {
+            setWrongCredentials(true);
+        }
     };
 
     return (
@@ -73,6 +78,7 @@ const LoginForm = ({ open, handleClose }) => {
                     <form onSubmit={loginRequestPending ? null : handleSubmit}>
                         <FormGroup sx={{ width: showFullScreen ? '100%' : '28em' }}>
                             <TextField
+                                error={wrongCredentials}
                                 onChange={handleChange}
                                 margin="normal"
                                 required
@@ -84,6 +90,7 @@ const LoginForm = ({ open, handleClose }) => {
                                 autoFocus
                             />
                             <TextField
+                                error={wrongCredentials}
                                 onChange={handleChange}
                                 margin="normal"
                                 required
@@ -93,6 +100,7 @@ const LoginForm = ({ open, handleClose }) => {
                                 type={showPassword ? 'text' : 'password'}
                                 id="password"
                                 autoComplete="current-password"
+                                helperText={wrongCredentials ? 'Dein Nutzername oder Passwort ist falsch.' : null}
                             />
                             <FormControlLabel
                                 control={<Checkbox color="primary" onChange={handleRememberMe} />}
