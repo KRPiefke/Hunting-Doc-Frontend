@@ -109,11 +109,6 @@ const LoginForm = ({ open, handleClose }) => {
                                         Passwort vergessen?
                                     </Link>
                                 </Grid>
-                                <Grid item>
-                                    <Link href="#" variant="body2" noWrap>
-                                        Kein Konto? Jetzt registrieren
-                                    </Link>
-                                </Grid>
                             </Grid>
                         </FormGroup>
                     </form>
