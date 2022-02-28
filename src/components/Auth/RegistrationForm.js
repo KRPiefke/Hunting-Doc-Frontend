@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { register, clearRegisterState } from '../../actions/auth';
 import { useTheme } from '@mui/system';
 import {
     Checkbox,
@@ -43,6 +44,7 @@ const RegistrationForm = ({ open, handleClose }) => {
 
     const handleSubmit = e => {
         e.preventDefault();
+        dispatch(register(formData));
     };
 
     return (
