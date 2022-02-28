@@ -11,7 +11,6 @@ import {
     Dialog,
     Avatar,
     Link,
-    Grid,
     Box,
     useMediaQuery,
     DialogContent,
