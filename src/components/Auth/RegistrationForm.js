@@ -47,7 +47,7 @@ const RegistrationForm = ({ open, handleClose }) => {
     };
 
     return (
-        <Dialog fullScreen={showFullScreen} open={open}>
+        <Dialog fullScreen={true} open={open}>
             <DialogContent>
                 <Box
                     sx={{
