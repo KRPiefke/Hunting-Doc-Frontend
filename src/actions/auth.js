@@ -31,3 +31,19 @@ export const logout = createAction('LOGOUT', () => ({
         },
     },
 }));
+
+export const register = createAction('REGISTER', ({ firstName, lastName, username, email, password }) => ({
+    payload: {
+        request: {
+            url: '/auth/register',
+            method: 'POST',
+            data: {
+                firstName,
+                lastName,
+                username,
+                email,
+                password,
+            },
+        },
+    },
+}));
