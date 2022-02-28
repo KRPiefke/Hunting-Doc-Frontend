@@ -20,8 +20,11 @@ import {
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 const initialFormData = {
+    firstName: null,
+    lastName: null,
     username: null,
     password: null,
+    email: null,
 };
 
 const RegistrationForm = ({ open, handleClose }) => {
@@ -65,10 +68,43 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 margin="normal"
                                 required
                                 fullWidth
+                                id="firstName"
+                                label="Vorname"
+                                name="firstName"
+                                autoComplete="given-name"
+                                autoFocus
+                            />
+                            <TextField
+                                onChange={handleChange}
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="lastName"
+                                label="Nachname"
+                                name="lastName"
+                                autoComplete="family-name"
+                                autoFocus
+                            />
+                            <TextField
+                                onChange={handleChange}
+                                margin="normal"
+                                required
+                                fullWidth
                                 id="username"
                                 label="Nutzername"
                                 name="username"
                                 autoComplete="username"
+                                autoFocus
+                            />
+                            <TextField
+                                onChange={handleChange}
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="E-Mail Adresse"
+                                name="email"
+                                autoComplete="email"
                                 autoFocus
                             />
                             <TextField
@@ -81,6 +117,16 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 type={showPassword ? 'text' : 'password'}
                                 id="password"
                                 autoComplete="current-password"
+                            />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Passwort wiederholen"
+                                type={showPassword ? 'text' : 'password'}
+                                id="password"
+                                autoComplete="new-password"
                             />
                             <FormControlLabel
                                 control={<Checkbox color="primary" onChange={() => setShowPassword(!showPassword)} />}
