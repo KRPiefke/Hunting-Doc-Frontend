@@ -13,6 +13,7 @@ const App = () => {
     const [avatarMenuAnchorEl, setAvatarMenuAnchorEl] = useState(null);
     const avatarMenuOpen = Boolean(avatarMenuAnchorEl);
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+    const userInitials = useSelector(state => state.auth?.user?.initials);
 
     useEffect(() => {
         dispatch(refreshToken());
@@ -54,7 +55,7 @@ const App = () => {
                                 aria-expanded={avatarMenuOpen ? 'true' : undefined}
                                 onClick={handleAvatarMenuClick}
                                 sx={{ bgcolor: 'secondary.main' }}>
-                                AA
+                                {userInitials}
                             </Avatar>
                         ) : (
                             <Button color="inherit" onClick={() => setLoginDialogOpen(true)}>
