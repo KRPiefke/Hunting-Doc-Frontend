@@ -7,20 +7,21 @@ export default createReducer(
     {
         isLoggedIn: false,
         error: null,
+        user: null,
     },
     {
         [success(login)]: (state, action) => {
-            let accessToken = action.payload.data.accessToken;
             state.isLoggedIn = true;
-            tokenService.setAccessToken(accessToken);
+            state.user = action.payload.data.user;
+            tokenService.setAccessToken(action.payload.data.accessToken);
         },
         [error(login)]: (state, action) => {
             state.error = action.payload.response.data.message;
         },
         [success(refreshToken)]: (state, action) => {
-            let accessToken = action.payload.data.accessToken;
             state.isLoggedIn = true;
-            tokenService.setAccessToken(accessToken);
+            state.user = action.payload.data.user;
+            tokenService.setAccessToken(action.payload.data.accessToken);
         },
         [success(logout)]: (state, action) => {
             state.isLoggedIn = false;
