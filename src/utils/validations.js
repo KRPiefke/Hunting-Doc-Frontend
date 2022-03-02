@@ -79,3 +79,11 @@ export const passwordValidation = password => {
         .validate(password);
     return error?.details[0].message;
 };
+
+export const repeatedPasswordValidation = (password, repeatedPassword) => {
+    if (!repeatedPassword) return 'Das Passwort wiederholen ist ein Pflichtfeld.';
+    if (password === repeatedPassword) {
+        return null;
+    }
+    return 'Die Passwörter stimmen nicht überein.';
+};
