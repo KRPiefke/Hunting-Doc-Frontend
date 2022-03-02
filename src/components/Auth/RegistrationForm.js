@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register, clearRegisterState } from '../../actions/auth';
-import { nameValidation, usernameValidation, emailValidation } from '../../utils/validations';
+import { nameValidation, usernameValidation, emailValidation, passwordValidation } from '../../utils/validations';
 import { useTheme } from '@mui/system';
 import {
     Checkbox,
@@ -41,6 +41,7 @@ const RegistrationForm = ({ open, handleClose }) => {
     const [lastNameError, setLastNameError] = useState(null);
     const [usernameError, setUsernameError] = useState(null);
     const [emailError, setEmailError] = useState(null);
+    const [passwordError, setPasswordError] = useState(null);
 
     const handleChange = e => {
         updateFormData({
@@ -64,6 +65,9 @@ const RegistrationForm = ({ open, handleClose }) => {
         validation = emailValidation(formData.email);
         if (validation) hasError = true;
         setEmailError(validation);
+        validation = passwordValidation(formData.password);
+        if (validation) hasError = true;
+        setPasswordError(validation);
         if (hasError) {
             return false;
         }
@@ -150,6 +154,8 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 autoFocus
                             />
                             <TextField
+                                error={passwordError ? true : false}
+                                helperText={passwordError ? passwordError : null}
                                 onChange={handleChange}
                                 margin="normal"
                                 required
