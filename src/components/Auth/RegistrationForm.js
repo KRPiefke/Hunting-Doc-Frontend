@@ -165,6 +165,17 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 autoComplete="email"
                                 autoFocus
                             />
+                            <Alert severity="info">
+                                <AlertTitle>Passwort Kriterien</AlertTitle>
+                                - zwischen 8 und 32 Zeichen lang
+                                <br />
+                                - mindestens einen Kleinbuchstaben
+                                <br />
+                                - mindestens einen Großbuchstaben
+                                <br />
+                                - mindestens eine Zahl
+                                <br />- mindestens ein Sonderzeichen
+                            </Alert>
                             <TextField
                                 error={passwordError ? true : false}
                                 helperText={passwordError ? passwordError : null}
