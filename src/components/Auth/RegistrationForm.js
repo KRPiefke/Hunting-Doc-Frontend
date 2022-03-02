@@ -94,6 +94,15 @@ const RegistrationForm = ({ open, handleClose }) => {
         }
     };
 
+    const clearErrorStates = () => {
+        setFirstNameError(null);
+        setLastNameError(null);
+        setUsernameError(null);
+        setEmailError(null);
+        setPasswordError(null);
+        setRepeatedPasswordError(null);
+    };
+
     return (
         <Dialog fullScreen={true} open={open}>
             <DialogContent>
@@ -213,7 +222,14 @@ const RegistrationForm = ({ open, handleClose }) => {
                                     'Registrieren'
                                 )}
                             </Button>
-                            <Button fullWidth variant="outlined" onClick={handleClose} sx={{ mb: 2 }}>
+                            <Button
+                                fullWidth
+                                variant="outlined"
+                                onClick={() => {
+                                    handleClose();
+                                    clearErrorStates();
+                                }}
+                                sx={{ mb: 2 }}>
                                 Abbrechen
                             </Button>
                         </FormGroup>
