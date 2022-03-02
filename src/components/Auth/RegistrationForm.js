@@ -32,6 +32,7 @@ const initialFormData = {
     username: null,
     password: null,
     email: null,
+    repeatedPassword: null,
 };
 
 const RegistrationForm = ({ open, handleClose }) => {
@@ -75,7 +76,7 @@ const RegistrationForm = ({ open, handleClose }) => {
         validation = passwordValidation(formData.password);
         if (validation) hasError = true;
         setPasswordError(validation);
-        validation = repeatedPasswordValidation(formData.repeatedPassword);
+        validation = repeatedPasswordValidation(formData.password, formData.repeatedPassword);
         if (validation) hasError = true;
         setRepeatedPasswordError(validation);
 
@@ -184,10 +185,10 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 margin="normal"
                                 required
                                 fullWidth
-                                name="password"
+                                name="repeatedPassword"
                                 label="Passwort wiederholen"
                                 type={showPassword ? 'text' : 'password'}
-                                id="password"
+                                id="repeatedPassword"
                                 autoComplete="new-password"
                             />
                             <FormControlLabel
