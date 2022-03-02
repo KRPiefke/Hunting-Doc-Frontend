@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register, clearRegisterState } from '../../actions/auth';
-import { nameValidation, usernameValidation, emailValidation, passwordValidation } from '../../utils/validations';
+import {
+    nameValidation,
+    usernameValidation,
+    emailValidation,
+    passwordValidation,
+    repeatedPasswordValidation,
+} from '../../utils/validations';
 import { useTheme } from '@mui/system';
 import {
     Checkbox,
@@ -42,6 +48,7 @@ const RegistrationForm = ({ open, handleClose }) => {
     const [usernameError, setUsernameError] = useState(null);
     const [emailError, setEmailError] = useState(null);
     const [passwordError, setPasswordError] = useState(null);
+    const [repeatedPasswordError, setRepeatedPasswordError] = useState(null);
 
     const handleChange = e => {
         updateFormData({
@@ -68,6 +75,10 @@ const RegistrationForm = ({ open, handleClose }) => {
         validation = passwordValidation(formData.password);
         if (validation) hasError = true;
         setPasswordError(validation);
+        validation = repeatedPasswordValidation(formData.repeatedPassword);
+        if (validation) hasError = true;
+        setRepeatedPasswordError(validation);
+
         if (hasError) {
             return false;
         }
@@ -167,6 +178,9 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 autoComplete="current-password"
                             />
                             <TextField
+                                error={repeatedPasswordError ? true : false}
+                                helperText={repeatedPasswordError ? repeatedPasswordError : null}
+                                onChange={handleChange}
                                 margin="normal"
                                 required
                                 fullWidth
