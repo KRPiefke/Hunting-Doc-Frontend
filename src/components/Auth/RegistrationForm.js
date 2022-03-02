@@ -30,8 +30,10 @@ const initialFormData = {
 const RegistrationForm = ({ open, handleClose }) => {
     const theme = useTheme();
     const dispatch = useDispatch();
+
     const registerRequestPending = useSelector(state => state.requests.mutations?.REGISTER?.pending);
     const showFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
     const [formData, updateFormData] = useState(initialFormData);
     const [showPassword, setShowPassword] = useState(false);
 
@@ -42,9 +44,20 @@ const RegistrationForm = ({ open, handleClose }) => {
         });
     };
 
+    const validateFormData = () => {
+        let hasError = false;
+        if (hasError) {
+            return false;
+        }
+        return true;
+    };
+
     const handleSubmit = e => {
         e.preventDefault();
-        dispatch(register(formData));
+        if (validateFormData()) {
+            delete formData.repeatedPassword;
+            dispatch(register(formData));
+        }
     };
 
     return (
