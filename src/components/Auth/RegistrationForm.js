@@ -38,6 +38,7 @@ const RegistrationForm = ({ open, handleClose }) => {
     const [formData, updateFormData] = useState(initialFormData);
     const [showPassword, setShowPassword] = useState(false);
     const [firstNameError, setFirstNameError] = useState(null);
+    const [lastNameError, setLastNameError] = useState(null);
 
     const handleChange = e => {
         updateFormData({
@@ -52,6 +53,9 @@ const RegistrationForm = ({ open, handleClose }) => {
         validation = nameValidation(formData.firstName);
         if (validation) hasError = true;
         setFirstNameError(validation);
+        validation = nameValidation(formData.lastName);
+        if (validation) hasError = true;
+        setLastNameError(validation);
         if (hasError) {
             return false;
         }
@@ -99,6 +103,8 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 autoFocus
                             />
                             <TextField
+                                error={lastNameError ? true : false}
+                                helperText={lastNameError ? lastNameError : null}
                                 onChange={handleChange}
                                 margin="normal"
                                 required
