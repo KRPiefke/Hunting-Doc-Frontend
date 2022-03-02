@@ -36,3 +36,16 @@ export const usernameValidation = username => {
         .validate(username);
     return error?.details[0].message;
 };
+
+export const emailValidation = email => {
+    let { error } = Joi.string()
+        .required()
+        .email({ tlds: { allow: false } })
+        .messages({
+            'string.email': 'Die E-Mail Adresse ist ungültig.',
+            'any.required': 'Der Nutzername ist ein Pflichtfeld.',
+        })
+        .validate(email);
+    return error?.details[0].message;
+};
+
