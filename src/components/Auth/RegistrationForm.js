@@ -207,7 +207,7 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 fullWidth
                                 name="repeatedPassword"
                                 label="Passwort wiederholen"
-                                type={showPassword ? 'text' : 'password'}
+                                type="password"
                                 id="repeatedPassword"
                                 autoComplete="new-password"
                             />
