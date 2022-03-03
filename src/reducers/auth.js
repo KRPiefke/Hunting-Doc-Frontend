@@ -38,7 +38,7 @@ export default createReducer(
         [error(registration)]: (state, action) => {
             state.registration.error = action.payload.response.data.message;
         },
-        [success(clearRegistrationState)]: (state, action) => {
+        [clearRegistrationState]: (state, action) => {
             state.registration = {
                 error: null,
                 success: null,
