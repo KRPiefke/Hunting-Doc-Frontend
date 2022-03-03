@@ -7,6 +7,7 @@ import { Box } from '@mui/system';
 
 import LoginForm from './components/Auth/LoginForm';
 import RegistrationForm from './components/Auth/RegistrationForm';
+import Alerts from './components/Alerts';
 
 const App = () => {
     const dispatch = useDispatch();
@@ -102,6 +103,7 @@ const App = () => {
                     <RegistrationForm open={registrationDialogOpen} handleClose={() => setRegistrationDialogOpen(false)} />
                 </Container>
             </AppBar>
+            <Alerts />
         </>
     );
 };
