@@ -151,8 +151,8 @@ const RegistrationForm = ({ open, handleClose }) => {
                     <form onSubmit={registerRequestPending ? null : handleSubmit}>
                         <FormGroup sx={{ width: showFullScreen ? '100%' : '28em' }}>
                             <TextField
-                                error={firstNameError ? true : false}
-                                helperText={firstNameError ? firstNameError : null}
+                                error={firstNameError}
+                                helperText={firstNameError}
                                 onChange={handleChange}
                                 margin="normal"
                                 required
@@ -164,8 +164,8 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 autoFocus
                             />
                             <TextField
-                                error={lastNameError ? true : false}
-                                helperText={lastNameError ? lastNameError : null}
+                                error={lastNameError}
+                                helperText={lastNameError}
                                 onChange={handleChange}
                                 margin="normal"
                                 required
@@ -214,8 +214,8 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 <br />- mindestens ein Sonderzeichen
                             </Alert>
                             <TextField
-                                error={passwordError ? true : false}
-                                helperText={passwordError ? passwordError : null}
+                                error={passwordError}
+                                helperText={passwordError}
                                 onChange={handleChange}
                                 margin="normal"
                                 required
@@ -227,8 +227,8 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 autoComplete="current-password"
                             />
                             <TextField
-                                error={repeatedPasswordError ? true : false}
-                                helperText={repeatedPasswordError ? repeatedPasswordError : null}
+                                error={repeatedPasswordError}
+                                helperText={repeatedPasswordError}
                                 onChange={handleChange}
                                 margin="normal"
                                 required
