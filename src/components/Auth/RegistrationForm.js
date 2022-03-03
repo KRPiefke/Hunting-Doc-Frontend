@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register, clearRegisterState } from '../../actions/auth';
 import {
@@ -42,6 +42,7 @@ const RegistrationForm = ({ open, handleClose }) => {
     const dispatch = useDispatch();
 
     const registerRequestPending = useSelector(state => state.requests.mutations?.REGISTER?.pending);
+    const registration = useSelector(state => state.auth.registration);
     const showFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     const [formData, updateFormData] = useState(initialFormData);
@@ -103,6 +104,14 @@ const RegistrationForm = ({ open, handleClose }) => {
         setPasswordError(null);
         setRepeatedPasswordError(null);
     };
+
+    useEffect(() => {
+        if (registration.success) {
+            dispatch(clearRegisterState());
+            clearErrorStates();
+            updateFormData(initialFormData);
+        }
+    }, [registration, dispatch]);
 
     return (
         <Dialog fullScreen={true} open={open}>
