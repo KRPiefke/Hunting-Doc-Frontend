@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { register, clearRegistrationState } from '../../actions/auth';
+import { registration, clearRegistrationState } from '../../actions/auth';
 import {
     nameValidation,
     usernameValidation,
@@ -41,7 +41,7 @@ const RegistrationForm = ({ open, handleClose }) => {
     const theme = useTheme();
     const dispatch = useDispatch();
 
-    const registerRequestPending = useSelector(state => state.requests.mutations?.REGISTER?.pending);
+    const registerRequestPending = useSelector(state => state.requests.mutations?.REGISTRATION?.pending);
     const registration = useSelector(state => state.auth.registration);
     const showFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -94,7 +94,7 @@ const RegistrationForm = ({ open, handleClose }) => {
     const handleSubmit = e => {
         e.preventDefault();
         if (validateFormData()) {
-            dispatch(register(formData));
+            dispatch(registration(formData));
         }
     };
 

@@ -32,7 +32,7 @@ export const logout = createAction('LOGOUT', () => ({
     },
 }));
 
-export const register = createAction('REGISTER', ({ firstName, lastName, username, email, password }) => ({
+export const registration = createAction('REGISTRATION', ({ firstName, lastName, username, email, password }) => ({
     payload: {
         request: {
             url: '/auth/register',
