@@ -41,8 +41,8 @@ const RegistrationForm = ({ open, handleClose }) => {
     const theme = useTheme();
     const dispatch = useDispatch();
 
-    const registerRequestPending = useSelector(state => state.requests.mutations?.REGISTRATION?.pending);
-    const registration = useSelector(state => state.auth.registration);
+    const registrationRequestPending = useSelector(state => state.requests.mutations?.REGISTRATION?.pending);
+    const registrationState = useSelector(state => state.auth.registration);
     const showFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     const [formData, updateFormData] = useState(initialFormData);
@@ -108,28 +108,28 @@ const RegistrationForm = ({ open, handleClose }) => {
     };
 
     useEffect(() => {
-        if (registration.success) {
+        if (registrationState.success) {
             dispatch(clearRegistrationState());
             clearErrorStates();
             updateFormData(initialFormData);
         }
-        if (registration.error === 'An User with this Email already exists.') {
+        if (registrationState.error === 'An User with this Email already exists.') {
             setEmailRequestError('Es existiert bereits ein Nutzer mit dieser E-mail.');
         } else {
             setEmailRequestError(null);
         }
-        if (registration.error === 'An User with this Username already exists.') {
+        if (registrationState.error === 'An User with this Username already exists.') {
             setUsernameRequestError('Der Nutzername ist bereits vergeben.');
         } else {
             setUsernameRequestError(null);
         }
-    }, [registration, dispatch]);
+    }, [registrationState, dispatch]);
 
     useEffect(() => {
-        if (registration.success) {
+        if (registrationState.success) {
             handleClose();
         }
-    }, [registration.success, handleClose]);
+    }, [registrationState.success, handleClose]);
 
     return (
         <Dialog fullScreen={true} open={open}>
@@ -148,7 +148,7 @@ const RegistrationForm = ({ open, handleClose }) => {
                             Registrierung
                         </Typography>
                     </Box>
-                    <form onSubmit={registerRequestPending ? null : handleSubmit}>
+                    <form onSubmit={registrationRequestPending ? null : handleSubmit}>
                         <FormGroup sx={{ width: showFullScreen ? '100%' : '28em' }}>
                             <TextField
                                 error={firstNameError}
@@ -244,7 +244,7 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 label="Passwort anzeigen"
                             />
                             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 1.5 }}>
-                                {registerRequestPending ? (
+                                {registrationRequestPending ? (
                                     <CircularProgress color="secondary" size="1.75em" />
                                 ) : (
                                     'Registrieren'
