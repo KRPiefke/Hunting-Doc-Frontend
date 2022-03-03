@@ -91,7 +91,6 @@ const RegistrationForm = ({ open, handleClose }) => {
     const handleSubmit = e => {
         e.preventDefault();
         if (validateFormData()) {
-            delete formData.repeatedPassword;
             dispatch(register(formData));
         }
     };
