@@ -14,11 +14,13 @@ const Alerts = () => {
     };
 
     useEffect(() => {
-        if (
-            registrationState.error !== 'An User with this Email already exists.' ||
-            registrationState.error !== 'An User with this Username already exists.'
-        ) {
-            setRegistrationError(true);
+        if (registrationState.error !== null) {
+            if (
+                registrationState.error !== 'An User with this Email already exists.' ||
+                registrationState.error !== 'An User with this Username already exists.'
+            ) {
+                setRegistrationError(true);
+            }
         }
     }, [registrationState]);
 
