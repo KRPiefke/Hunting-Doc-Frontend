@@ -50,6 +50,8 @@ const RegistrationForm = ({ open, handleClose }) => {
     const [firstNameError, setFirstNameError] = useState(null);
     const [lastNameError, setLastNameError] = useState(null);
     const [usernameError, setUsernameError] = useState(null);
+    const [usernameRequestError, setUsernameRequestError] = useState(null);
+    const [emailRequestError, setEmailRequestError] = useState(null);
     const [emailError, setEmailError] = useState(null);
     const [passwordError, setPasswordError] = useState(null);
     const [repeatedPasswordError, setRepeatedPasswordError] = useState(null);
@@ -111,6 +113,16 @@ const RegistrationForm = ({ open, handleClose }) => {
             clearErrorStates();
             updateFormData(initialFormData);
         }
+        if (registration.error === 'An User with this Email already exists.') {
+            setEmailRequestError('Es existiert bereits ein Nutzer mit dieser E-mail.');
+        } else {
+            setEmailRequestError(null);
+        }
+        if (registration.error === 'An User with this Username already exists.') {
+            setUsernameRequestError('Der Nutzername ist bereits vergeben.');
+        } else {
+            setUsernameRequestError(null);
+        }
     }, [registration, dispatch]);
 
     useEffect(() => {
@@ -165,8 +177,8 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 autoFocus
                             />
                             <TextField
-                                error={usernameError ? true : false}
-                                helperText={usernameError ? usernameError : null}
+                                error={usernameError ? true : usernameRequestError}
+                                helperText={usernameError ? usernameError : usernameRequestError}
                                 onChange={handleChange}
                                 margin="normal"
                                 required
@@ -178,8 +190,8 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 autoFocus
                             />
                             <TextField
-                                error={emailError ? true : false}
-                                helperText={emailError ? emailError : null}
+                                error={emailError ? true : emailRequestError}
+                                helperText={emailError ? emailError : emailRequestError}
                                 onChange={handleChange}
                                 margin="normal"
                                 required
