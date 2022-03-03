@@ -113,6 +113,12 @@ const RegistrationForm = ({ open, handleClose }) => {
         }
     }, [registration, dispatch]);
 
+    useEffect(() => {
+        if (registration.success) {
+            handleClose();
+        }
+    }, [registration.success, handleClose]);
+
     return (
         <Dialog fullScreen={true} open={open}>
             <DialogContent>
