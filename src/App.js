@@ -8,6 +8,7 @@ import { Box } from '@mui/system';
 import LoginForm from './components/Auth/LoginForm';
 import RegistrationForm from './components/Auth/RegistrationForm';
 import Alerts from './components/Alerts';
+import { Outlet } from 'react-router-dom';
 
 const App = () => {
     const dispatch = useDispatch();
@@ -104,6 +105,7 @@ const App = () => {
                 </Container>
             </AppBar>
             <Alerts />
+            <Outlet />
         </>
     );
 };
