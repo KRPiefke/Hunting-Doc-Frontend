@@ -48,4 +48,4 @@ export const register = createAction('REGISTER', ({ firstName, lastName, usernam
     },
 }));
 
-export const clearRegisterState = createAction('CLEAR_REGISTER', () => ({}));
+export const clearRegistrationState = createAction('CLEAR_REGISTRATION', () => ({}));

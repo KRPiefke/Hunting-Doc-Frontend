@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { register, clearRegisterState } from '../../actions/auth';
+import { register, clearRegistrationState } from '../../actions/auth';
 import {
     nameValidation,
     usernameValidation,
@@ -109,7 +109,7 @@ const RegistrationForm = ({ open, handleClose }) => {
 
     useEffect(() => {
         if (registration.success) {
-            dispatch(clearRegisterState());
+            dispatch(clearRegistrationState());
             clearErrorStates();
             updateFormData(initialFormData);
         }

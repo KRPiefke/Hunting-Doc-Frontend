@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { success, error } from '@redux-requests/core';
 import tokenService from '../services/tokenService';
-import { login, refreshToken, logout, register, clearRegisterState } from '../actions/auth';
+import { login, refreshToken, logout, register, clearRegistrationState } from '../actions/auth';
 
 export default createReducer(
     {
@@ -38,7 +38,7 @@ export default createReducer(
         [error(register)]: (state, action) => {
             state.registration.error = action.payload.response.data.message;
         },
-        [success(clearRegisterState)]: (state, action) => {
+        [success(clearRegistrationState)]: (state, action) => {
             state.registration = {
                 error: null,
                 success: null,
