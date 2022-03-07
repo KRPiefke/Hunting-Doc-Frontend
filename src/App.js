@@ -5,7 +5,6 @@ import { refreshToken, logout } from './actions/auth';
 import { AppBar, Toolbar, Typography, Button, Container, Avatar, Menu, MenuItem } from '@mui/material';
 import { Box } from '@mui/system';
 
-import LoginForm from './components/Auth/LoginForm';
 import RegistrationForm from './components/Auth/RegistrationForm';
 import Alerts from './components/Alerts';
 import { Outlet } from 'react-router-dom';
@@ -100,7 +99,6 @@ const App = () => {
                             </MenuItem>
                         </Menu>
                     </Toolbar>
-                    <LoginForm open={loginDialogOpen} handleClose={() => setLoginDialogOpen(false)} />
                     <RegistrationForm open={registrationDialogOpen} handleClose={() => setRegistrationDialogOpen(false)} />
                 </Container>
             </AppBar>

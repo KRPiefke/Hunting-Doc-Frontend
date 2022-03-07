@@ -26,11 +26,12 @@ const initialFormData = {
     rememberMe: false,
 };
 
-const LoginForm = ({ open, handleClose }) => {
+const LoginForm = () => {
     const theme = useTheme();
     const dispatch = useDispatch();
     const loginRequestPending = useSelector(state => state.requests.mutations.LOGIN?.pending);
     const loginError = useSelector(state => state.auth?.error);
+    const isLoggedIn = useSelector(state => state.auth?.isLoggedIn);
     const showFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [formData, updateFormData] = useState(initialFormData);
     const [showPassword, setShowPassword] = useState(false);
@@ -59,7 +60,7 @@ const LoginForm = ({ open, handleClose }) => {
     };
 
     return (
-        <Dialog fullScreen={showFullScreen} open={open} onClose={handleClose}>
+        <Dialog fullScreen={showFullScreen} open={true}>
             <DialogContent>
                 <Box
                     sx={{
