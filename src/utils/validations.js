@@ -87,3 +87,35 @@ export const repeatedPasswordValidation = (password, repeatedPassword) => {
     }
     return 'Die Passwörter stimmen nicht überein.';
 };
+
+const validateFormData = formData => {
+    let formDataError = { hasError: false };
+    Object.entries(formData).forEach(([key, value]) => {
+        switch (key) {
+            case 'firstName':
+            case 'lastName':
+                formDataError[key] = nameValidation(value);
+                break;
+            case 'username':
+                formDataError[key] = usernameValidation(value);
+                break;
+            case 'email':
+                formDataError[key] = emailValidation(value);
+                break;
+            case 'password':
+                formDataError[key] = passwordValidation(value);
+                break;
+            case 'repeatedPassword':
+                formDataError[key] = repeatedPasswordValidation(formData.password, value);
+                break;
+            default:
+                break;
+        }
+        if (formDataError[key]) {
+            formDataError.hasError = true;
+        }
+    });
+    return formDataError;
+};
+
+export default validateFormData;
