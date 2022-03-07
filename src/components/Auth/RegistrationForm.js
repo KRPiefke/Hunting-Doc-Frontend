@@ -1,13 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registration, clearRegistrationState } from '../../actions/auth';
-import {
-    nameValidation,
-    usernameValidation,
-    emailValidation,
-    passwordValidation,
-    repeatedPasswordValidation,
-} from '../../utils/validations';
+import validateFormData from '../../utils/validations';
 import { useTheme } from '@mui/system';
 import {
     Checkbox,
@@ -28,15 +22,6 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
-const initialFormData = {
-    firstName: null,
-    lastName: null,
-    username: null,
-    password: null,
-    email: null,
-    repeatedPassword: null,
-};
-
 const RegistrationForm = ({ open, handleClose }) => {
     const theme = useTheme();
     const dispatch = useDispatch();
@@ -45,91 +30,65 @@ const RegistrationForm = ({ open, handleClose }) => {
     const registrationState = useSelector(state => state.auth.registration);
     const showFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const [formData, updateFormData] = useState(initialFormData);
+    const [formData, setFormData] = useState({});
+    const [formDataError, setFormDataError] = useState({});
+    const [formDataApiError, setFormDataApiError] = useState({});
     const [showPassword, setShowPassword] = useState(false);
-    const [firstNameError, setFirstNameError] = useState(null);
-    const [lastNameError, setLastNameError] = useState(null);
-    const [usernameError, setUsernameError] = useState(null);
-    const [usernameRequestError, setUsernameRequestError] = useState(null);
-    const [emailRequestError, setEmailRequestError] = useState(null);
-    const [emailError, setEmailError] = useState(null);
-    const [passwordError, setPasswordError] = useState(null);
-    const [repeatedPasswordError, setRepeatedPasswordError] = useState(null);
 
     const handleChange = e => {
-        updateFormData({
+        setFormData({
             ...formData,
             [e.target.name]: e.target.value.trim(),
         });
     };
 
-    const validateFormData = () => {
-        let validation;
-        let hasError = false;
-        validation = nameValidation(formData.firstName);
-        if (validation) hasError = true;
-        setFirstNameError(validation);
-        validation = nameValidation(formData.lastName);
-        if (validation) hasError = true;
-        setLastNameError(validation);
-        validation = usernameValidation(formData.username);
-        if (validation) hasError = true;
-        setUsernameError(validation);
-        validation = emailValidation(formData.email);
-        if (validation) hasError = true;
-        setEmailError(validation);
-        validation = passwordValidation(formData.password);
-        if (validation) hasError = true;
-        setPasswordError(validation);
-        validation = repeatedPasswordValidation(formData.password, formData.repeatedPassword);
-        if (validation) hasError = true;
-        setRepeatedPasswordError(validation);
-
-        if (hasError) {
-            return false;
-        }
-        return true;
+    const validate = () => {
+        let validation = validateFormData(formData);
+        setFormDataError(validation);
+        return !validation.hasError;
     };
 
     const handleSubmit = e => {
         e.preventDefault();
-        if (validateFormData()) {
+        if (validate()) {
             dispatch(registration(formData));
         }
     };
 
-    const clearErrorStates = () => {
-        setFirstNameError(null);
-        setLastNameError(null);
-        setUsernameError(null);
-        setEmailError(null);
-        setPasswordError(null);
-        setRepeatedPasswordError(null);
-    };
+    const clearStatesAndClose = useCallback(() => {
+        dispatch(clearRegistrationState());
+        setFormData({});
+        setFormDataError({});
+        setFormDataApiError({});
+        handleClose();
+    }, [dispatch, setFormData, setFormDataError, setFormDataApiError, handleClose]);
 
     useEffect(() => {
         if (registrationState.success) {
-            dispatch(clearRegistrationState());
-            clearErrorStates();
-            updateFormData(initialFormData);
+            clearStatesAndClose();
         }
         if (registrationState.error === 'An User with this Email already exists.') {
-            setEmailRequestError('Es existiert bereits ein Nutzer mit dieser E-mail.');
+            setFormDataApiError(prevState => {
+                return { ...prevState, email: 'Es existiert bereits ein Nutzer mit dieser E-mail.' };
+            });
         } else {
-            setEmailRequestError(null);
+            setFormDataApiError(prevState => {
+                return { ...prevState, email: null };
+            });
         }
         if (registrationState.error === 'An User with this Username already exists.') {
-            setUsernameRequestError('Der Nutzername ist bereits vergeben.');
+            setFormDataApiError(prevState => {
+                return {
+                    ...prevState,
+                    username: 'Der Nutzername ist bereits vergeben.',
+                };
+            });
         } else {
-            setUsernameRequestError(null);
+            setFormDataApiError(prevState => {
+                return { ...prevState, username: null };
+            });
         }
-    }, [registrationState, dispatch]);
-
-    useEffect(() => {
-        if (registrationState.success) {
-            handleClose();
-        }
-    }, [registrationState.success, handleClose]);
+    }, [registrationState, dispatch, clearStatesAndClose]);
 
     return (
         <Dialog fullScreen={true} open={open}>
@@ -151,8 +110,8 @@ const RegistrationForm = ({ open, handleClose }) => {
                     <form onSubmit={registrationRequestPending ? null : handleSubmit}>
                         <FormGroup sx={{ width: showFullScreen ? '100%' : '28em' }}>
                             <TextField
-                                error={firstNameError}
-                                helperText={firstNameError}
+                                error={formDataError?.firstName ? true : false}
+                                helperText={formDataError?.firstName}
                                 onChange={handleChange}
                                 margin="normal"
                                 required
@@ -164,8 +123,8 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 autoFocus
                             />
                             <TextField
-                                error={lastNameError}
-                                helperText={lastNameError}
+                                error={formDataError?.lastName ? true : false}
+                                helperText={formDataError?.lastName}
                                 onChange={handleChange}
                                 margin="normal"
                                 required
@@ -177,8 +136,8 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 autoFocus
                             />
                             <TextField
-                                error={usernameError ? true : usernameRequestError}
-                                helperText={usernameError ? usernameError : usernameRequestError}
+                                error={formDataError?.username || formDataApiError?.username ? true : false}
+                                helperText={formDataError?.username || formDataApiError?.username}
                                 onChange={handleChange}
                                 margin="normal"
                                 required
@@ -190,8 +149,8 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 autoFocus
                             />
                             <TextField
-                                error={emailError ? true : emailRequestError}
-                                helperText={emailError ? emailError : emailRequestError}
+                                error={formDataError?.email || formDataApiError?.email ? true : false}
+                                helperText={formDataError?.email || formDataApiError?.email}
                                 onChange={handleChange}
                                 margin="normal"
                                 required
@@ -214,8 +173,8 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 <br />- mindestens ein Sonderzeichen
                             </Alert>
                             <TextField
-                                error={passwordError}
-                                helperText={passwordError}
+                                error={formDataError?.password ? true : false}
+                                helperText={formDataError?.password}
                                 onChange={handleChange}
                                 margin="normal"
                                 required
@@ -227,8 +186,8 @@ const RegistrationForm = ({ open, handleClose }) => {
                                 autoComplete="current-password"
                             />
                             <TextField
-                                error={repeatedPasswordError}
-                                helperText={repeatedPasswordError}
+                                error={formDataError?.repeatedPassword ? true : false}
+                                helperText={formDataError?.repeatedPassword}
                                 onChange={handleChange}
                                 margin="normal"
                                 required
@@ -250,14 +209,7 @@ const RegistrationForm = ({ open, handleClose }) => {
                                     'Registrieren'
                                 )}
                             </Button>
-                            <Button
-                                fullWidth
-                                variant="outlined"
-                                onClick={() => {
-                                    handleClose();
-                                    clearErrorStates();
-                                }}
-                                sx={{ mb: 2 }}>
+                            <Button fullWidth variant="outlined" onClick={clearStatesAndClose} sx={{ mb: 2 }}>
                                 Abbrechen
                             </Button>
                         </FormGroup>
