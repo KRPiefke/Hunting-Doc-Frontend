@@ -7,20 +7,22 @@ import MyThemeProvider from './theme';
 import store from './store';
 import getPages from './components/Pages';
 
-import App from './App';
+const buildRouteTree = pages =>
+    pages.map(({ id, path, component, children }) =>
+        children ? (
+            <Route key={id} path={path} element={component}>
+                {buildRouteTree(children)}
+            </Route>
+        ) : (
+            <Route key={id} path={path} element={component} />
+        )
+    );
 
 ReactDOM.render(
     <Provider store={store}>
         <MyThemeProvider>
             <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<App />}>
-                        {getPages().map(({ id, path, component }) => (
-                            <Route key={id} path={path} element={component} />
-                            //Rekursive funktion zum erstellen von child components mit den pfaden
-                        ))}
-                    </Route>
-                </Routes>
+                <Routes>{buildRouteTree(getPages())}</Routes>
             </BrowserRouter>
         </MyThemeProvider>
     </Provider>,
