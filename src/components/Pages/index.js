@@ -1,10 +1,10 @@
-import App from '../../App';
+import LoginForm from '../Auth/LoginForm';
 
 const getPages = () => [
     {
-        id: 'main',
-        path: '/',
-        component: <App />,
+        id: 'login',
+        path: 'login',
+        component: <LoginForm />,
     },
 ];
 

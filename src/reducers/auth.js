@@ -5,7 +5,7 @@ import { login, refreshToken, logout, registration, clearRegistrationState } fro
 
 export default createReducer(
     {
-        isLoggedIn: false,
+        isLoggedIn: true,
         error: null,
         user: null,
         registration: {
@@ -27,10 +27,13 @@ export default createReducer(
             state.user = action.payload.data.user;
             tokenService.setAccessToken(action.payload.data.accessToken);
         },
+        [error(refreshToken)]: (state, action) => {
+            state.isLoggedIn = false;
+            tokenService.setAccessToken('');
+        },
         [success(logout)]: (state, action) => {
             state.isLoggedIn = false;
             tokenService.setAccessToken(null);
-            window.location.reload();
         },
         [success(registration)]: (state, action) => {
             state.registration.success = true;

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { login } from '../../actions/auth';
 import { useTheme } from '@mui/system';
 import {
@@ -28,6 +29,7 @@ const initialFormData = {
 
 const LoginForm = () => {
     const theme = useTheme();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const loginRequestPending = useSelector(state => state.requests.mutations.LOGIN?.pending);
     const loginError = useSelector(state => state.auth?.error);
@@ -58,6 +60,12 @@ const LoginForm = () => {
             setWrongCredentials(true);
         }
     };
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate('/');
+        }
+    }, [isLoggedIn, navigate]);
 
     return (
         <Dialog fullScreen={showFullScreen} open={true}>

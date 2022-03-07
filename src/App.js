@@ -7,11 +7,11 @@ import { Box } from '@mui/system';
 
 import RegistrationForm from './components/Auth/RegistrationForm';
 import Alerts from './components/Alerts';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const App = () => {
     const dispatch = useDispatch();
-    const [loginDialogOpen, setLoginDialogOpen] = useState(false);
+    const navigate = useNavigate();
     const [registrationDialogOpen, setRegistrationDialogOpen] = useState(false);
     const [avatarMenuAnchorEl, setAvatarMenuAnchorEl] = useState(null);
     const avatarMenuOpen = Boolean(avatarMenuAnchorEl);
@@ -25,10 +25,11 @@ const App = () => {
 
     useEffect(() => {
         if (isLoggedIn) {
-            setLoginDialogOpen(false);
             dispatch(fetchAllShootings());
+        } else {
+            navigate('/login');
         }
-    }, [isLoggedIn, dispatch]);
+    }, [isLoggedIn, dispatch, navigate]);
 
     const handleAvatarMenuClick = event => {
         setAvatarMenuAnchorEl(event.currentTarget);
@@ -40,6 +41,7 @@ const App = () => {
 
     const handleLogout = () => {
         dispatch(logout());
+        navigate('/');
     };
 
     return (
@@ -62,7 +64,7 @@ const App = () => {
                                 {userInitials}
                             </Avatar>
                         ) : (
-                            <Button color="inherit" onClick={() => setLoginDialogOpen(true)}>
+                            <Button color="inherit" onClick={() => navigate('/login')}>
                                 Login
                             </Button>
                         )}
