@@ -8,15 +8,11 @@ import store from './store';
 import getPages from './components/Pages';
 
 const buildRouteTree = pages =>
-    pages.map(({ id, path, component, children }) =>
-        children ? (
-            <Route key={id} path={path} element={component}>
-                {buildRouteTree(children)}
-            </Route>
-        ) : (
-            <Route key={id} path={path} element={component} />
-        )
-    );
+    pages.map(({ id, path, component, children }) => (
+        <Route key={id} path={path} element={component}>
+            {children && buildRouteTree(children)}
+        </Route>
+    ));
 
 ReactDOM.render(
     <Provider store={store}>
