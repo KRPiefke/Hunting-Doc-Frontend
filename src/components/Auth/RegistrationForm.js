@@ -30,12 +30,19 @@ const RegistrationForm = () => {
 
     const registrationRequestPending = useSelector(state => state.requests.mutations?.REGISTRATION?.pending);
     const registrationState = useSelector(state => state.auth.registration);
+    const isAdmin = useSelector(state => state.auth?.user?.scopes?.isAdmin);
     const showFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     const [formData, setFormData] = useState({});
     const [formDataError, setFormDataError] = useState({});
     const [formDataApiError, setFormDataApiError] = useState({});
     const [showPassword, setShowPassword] = useState(false);
+
+    useEffect(() => {
+        if (!isAdmin) {
+            navigate('/');
+        }
+    }, [isAdmin, navigate]);
 
     const handleChange = e => {
         setFormData({
