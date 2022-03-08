@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { registration, clearRegistrationState } from '../../actions/auth';
 import validateFormData from '../../utils/validations';
 import { useTheme } from '@mui/system';
@@ -22,9 +23,10 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
-const RegistrationForm = ({ open, handleClose }) => {
+const RegistrationForm = () => {
     const theme = useTheme();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const registrationRequestPending = useSelector(state => state.requests.mutations?.REGISTRATION?.pending);
     const registrationState = useSelector(state => state.auth.registration);
@@ -60,8 +62,8 @@ const RegistrationForm = ({ open, handleClose }) => {
         setFormData({});
         setFormDataError({});
         setFormDataApiError({});
-        handleClose();
-    }, [dispatch, setFormData, setFormDataError, setFormDataApiError, handleClose]);
+        navigate('/');
+    }, [dispatch, setFormData, setFormDataError, setFormDataApiError, navigate]);
 
     useEffect(() => {
         if (registrationState.success) {
@@ -91,7 +93,7 @@ const RegistrationForm = ({ open, handleClose }) => {
     }, [registrationState, dispatch, clearStatesAndClose]);
 
     return (
-        <Dialog fullScreen={true} open={open}>
+        <Dialog fullScreen={true} open={true}>
             <DialogContent>
                 <Box
                     sx={{
