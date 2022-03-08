@@ -5,14 +5,12 @@ import { refreshToken, logout } from './actions/auth';
 import { AppBar, Toolbar, Typography, Button, Container, Avatar, Menu, MenuItem } from '@mui/material';
 import { Box } from '@mui/system';
 
-import RegistrationForm from './components/Auth/RegistrationForm';
 import Alerts from './components/Alerts';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 const App = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [registrationDialogOpen, setRegistrationDialogOpen] = useState(false);
     const [avatarMenuAnchorEl, setAvatarMenuAnchorEl] = useState(null);
     const avatarMenuOpen = Boolean(avatarMenuAnchorEl);
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
@@ -86,7 +84,7 @@ const App = () => {
                                     autoFocus={false}
                                     onClick={() => {
                                         handleAvatarMenuClose();
-                                        setRegistrationDialogOpen(true);
+                                        navigate('/registration');
                                     }}>
                                     Registrierung
                                 </MenuItem>
@@ -101,7 +99,6 @@ const App = () => {
                             </MenuItem>
                         </Menu>
                     </Toolbar>
-                    <RegistrationForm open={registrationDialogOpen} handleClose={() => setRegistrationDialogOpen(false)} />
                 </Container>
             </AppBar>
             <Alerts />

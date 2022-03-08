@@ -1,5 +1,6 @@
 import App from '../../App';
 import LoginForm from '../Auth/LoginForm';
+import RegistrationForm from '../Auth/RegistrationForm';
 
 const getPages = () => [
     {
@@ -13,6 +14,11 @@ const getPages = () => [
                 component: <LoginForm />,
             },
         ],
+    },
+    {
+        id: 'registration',
+        path: '/registration',
+        component: <RegistrationForm />,
     },
 ];
 
